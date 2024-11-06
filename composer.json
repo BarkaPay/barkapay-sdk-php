@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "A PHP SDK for BarkaPay payment service.",
     "type": "library",
+    "license": "MIT",
     "autoload": {
       "psr-4": {
         "Services\\": "src/Services/"
