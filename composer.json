@@ -1,0 +1,17 @@
+{
+    "name": "barkapay-sa/barkapay-php-sdk",
+    "version": "1.0.0",
+    "description": "A PHP SDK for BarkaPay payment service.",
+    "type": "library",
+    "autoload": {
+      "psr-4": {
+        "Services\\": "src/Services/"
+      }
+    },
+    "require": {
+      "php": ">=7.4",
+      "guzzlehttp/guzzle": "^7.0",
+      "vlucas/phpdotenv": "^5.4"
+    }
+  }
+  
