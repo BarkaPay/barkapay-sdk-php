@@ -44,14 +44,19 @@ class BaseBarkaPayPaymentService
     }
 
     /**
-     * Sends HTTP requests using Guzzle.
+     * Envoie les requêtes HTTP génériques.
      */
-    protected function sendHttpRequest(string $method, string $url, array $headers = [], array $body = [])
+    private function sendRequest(string $method, string $url, array $headers = [], array $body = [], string $key = 'api')
     {
         $client = new Client();
+
+        // Sélectionner la bonne clé API (API ou SCI)
+        $apiKey = $key === 'api' ? $this->apiKey : $this->sciKey;
+        $apiSecret = $key === 'api' ? $this->apiSecret : $this->sciSecret;
+
         $headers = array_merge([
-            'X-Api-Key' => $this->apiKey,
-            'X-Api-Secret' => $this->apiSecret,
+            'X-Api-Key' => $apiKey,
+            'X-Api-Secret' => $apiSecret,
             'Accept' => 'application/json',
         ], $headers);
 
@@ -62,32 +67,30 @@ class BaseBarkaPayPaymentService
 
         try {
             $response = $client->request($method, $url, $options);
-            return json_decode($response->getBody(), true);
+            $contents = $response->getBody()->getContents();
+            $decodedContents = json_decode($contents, true);
+            $statusCode = $response->getStatusCode();
+
+            return (object)['statusCode' => $statusCode, 'content' => $decodedContents];
         } catch (Exception $e) {
-            throw new RuntimeException("HTTP Request failed: " . $e->getMessage());
+            throw new RuntimeException("Request failed: " . $e->getMessage());
         }
     }
 
+    /**
+     * Envoie une requête HTTP en utilisant l'API clé classique.
+     */
+    protected function sendHttpRequest(string $method, string $url, array $headers = [], array $body = [])
+    {
+        return $this->sendRequest($method, $url, $headers, $body, 'api');
+    }
+
+    /**
+     * Envoie une requête HTTP en utilisant la clé SCI.
+     */
     protected function sendSCIHttpRequest(string $method, string $url, array $headers = [], array $body = [])
     {
-        $client = new Client();
-        $headers = array_merge([
-            'X-Api-Key' => $this->sciKey,
-            'X-Api-Secret' => $this->sciSecret,
-            'Accept' => 'application/json',
-        ], $headers);
-
-        $options = ['headers' => $headers];
-        if (!empty($body)) {
-            $options['json'] = $body;
-        }
-
-        try {
-            $response = $client->request($method, $url, $options);
-            return json_decode($response->getBody(), true);
-        } catch (Exception $e) {
-            throw new RuntimeException("SCI Request failed: " . $e->getMessage());
-        }
+        return $this->sendRequest($method, $url, $headers, $body, 'sci');
     }
 
     public function verifyCredentials()
@@ -120,7 +123,7 @@ class BaseBarkaPayPaymentService
      *
      * @param string $publicId The public identifier of the payment to retrieve.
      * @param string $language Preferred language for the API response ('fr', 'en').
-     * @return array The details of the payment.
+     * @return object The details of the payment.
      * @throws InvalidArgumentException If the public ID is not provided.
      * @throws RuntimeException If the HTTP request fails.
      */
@@ -134,14 +137,17 @@ class BaseBarkaPayPaymentService
             $url = self::BASE_URL . "payment/$publicId";
             $headers = ['Accept-Language' => $language];
 
+            // Envoi de la requête
             $response = $this->sendHttpRequest(self::METHOD_GET, $url, $headers);
 
-            if (!$response->successful()) {
-                $errorMessage = $response->json('message') ?? "Unknown error";
-                throw new RuntimeException("Error retrieving payment details: HTTP status {$response->status()} - $errorMessage");
+            // Vérifie si le statut HTTP est 200 (succès)
+            if ($response->statusCode !== 200) {
+                $errorMessage = $response->content['message'] ?? "Unknown error";
+                throw new RuntimeException("Error retrieving payment details: HTTP status {$response->statusCode} - $errorMessage");
             }
 
-            return $response->json();
+            // Retourne la réponse (contenu de la requête)
+            return $response->content;
         } catch (Exception $e) {
             throw new RuntimeException("Error retrieving payment details: " . $e->getMessage());
         }
@@ -168,12 +174,14 @@ class BaseBarkaPayPaymentService
 
             $response = $this->sendHttpRequest(self::METHOD_GET, $url, $headers);
 
-            if (!$response->successful()) {
-                $errorMessage = $response->json('message') ?? "Unknown error";
-                throw new RuntimeException("Error retrieving transfer details: HTTP status {$response->status()} - $errorMessage");
+            // Vérifie si le statut HTTP est 200 (succès)
+            if ($response->statusCode !== 200) {
+                $errorMessage = $response->content['message'] ?? "Unknown error";
+                throw new RuntimeException("Error retrieving payment details: HTTP status {$response->statusCode} - $errorMessage");
             }
 
-            return $response->json();
+            // Retourne la réponse (contenu de la requête)
+            return $response->content;
         } catch (Exception $e) {
             throw new RuntimeException("Error retrieving transfer details: " . $e->getMessage());
         }

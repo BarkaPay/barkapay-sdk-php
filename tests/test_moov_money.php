@@ -11,7 +11,7 @@ try {
     // Détails de paiement
     $paymentDetails = [
         'sender_phonenumber' => '62002208',     // Numéro de téléphone valide
-        'amount' => 10000,                      // Montant du paiement
+        'amount' => 100,                      // Montant du paiement
         'order_id' => 'ORDER123',               // Identifiant unique de la commande
         'callback_url' => 'https://e-events.net/notify'
     ];

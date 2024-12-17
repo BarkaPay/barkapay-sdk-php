@@ -9,7 +9,7 @@ try {
     $paymentService = new BaseBarkaPayPaymentService();
 
     // ID public du paiement que tu souhaites récupérer
-    $publicId = 'example-payment-id';
+    $publicId = 'iweidiewd743kwedk';
 
     // Appelle la méthode getPaymentDetails
     $response = $paymentService->getPaymentDetails($publicId);
