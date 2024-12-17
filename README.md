@@ -10,6 +10,10 @@ Installation
 
     composer require barkapay-sa/barkapay-php-sdk
 
+    ou
+    
+    composer require barkapay-sa/barkapay-php-sdk:dev-main
+
 Configuration
 
     Créez un fichier .env à la racine de votre projet.
