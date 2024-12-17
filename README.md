@@ -22,7 +22,7 @@ Configuration
     BKP_SCI_SECRET=your_sci_secret
 
 Utilisation
-1. Paiement Orange Money
+1. Paiement Orange Money (Voir le dossier tests pour plus de détails)
 
 php
 
@@ -33,13 +33,14 @@ $orangeMoneyService = new OrangeMoneyBFBarkaPayPaymentService();
 $paymentDetails = [
     'sender_phonenumber' => '770000000',
     'amount' => 5000,
-    'otp' => '123456'
+    'otp' => '123456',
+    'order_id' => 'ORDER123',
 ];
 
 $response = $orangeMoneyService->proceedPayment($paymentDetails);
 print_r($response);
 
-2. Paiement Moov Money
+2. Paiement Moov Money (Voir le dossier tests pour plus de détails)
 
 php
 
@@ -50,13 +51,14 @@ $moovMoneyService = new MoovMoneyBFBarkaPayPaymentService();
 $paymentDetails = [
     'sender_phonenumber' => '750000000',
     'amount' => 10000,
-    'order_id' => 'ORDER123'
+    'order_id' => 'ORDER123',
+    'callback_url' => 'https://e-events.net/notify'
 ];
 
 $response = $moovMoneyService->initMobilePayment($paymentDetails);
 print_r($response);
 
-3. Vérification du paiement
+3. Vérification du paiement (Voir le dossier tests pour plus de détails)
 
 php
 

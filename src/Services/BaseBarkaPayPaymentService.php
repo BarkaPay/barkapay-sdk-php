@@ -30,7 +30,7 @@ class BaseBarkaPayPaymentService
     public function __construct()
     {
         // Load environment variables from .env
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+        $dotenv = Dotenv::createImmutable(dirname(__DIR__, 2));
         $dotenv->load();
 
         $this->apiKey = $_ENV['BKP_API_KEY'] ?? null;

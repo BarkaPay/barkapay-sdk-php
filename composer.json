@@ -9,6 +9,12 @@
         "Services\\": "src/Services/"
       }
     },
+    "authors": [
+      {
+          "name": "Ultra226",
+          "email": "ulrichtraore956@gmail.com"
+      }
+    ],
     "require": {
       "php": ">=7.4",
       "guzzlehttp/guzzle": "^7.0",
