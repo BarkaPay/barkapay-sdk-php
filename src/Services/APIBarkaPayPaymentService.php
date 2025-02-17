@@ -2,7 +2,6 @@
 
 namespace Services;
 
-use RuntimeException;
 use InvalidArgumentException;
 
 class APIBarkaPayPaymentService extends BaseBarkaPayPaymentService
@@ -60,15 +59,5 @@ class APIBarkaPayPaymentService extends BaseBarkaPayPaymentService
         ];
 
         return $this->sendHttpRequest(self::METHOD_POST, $url, ['Accept-Language' => $language], $payload);
-        // Envoyer la requête HTTP POST
-        // $response = $this->sendHttpRequest(self::METHOD_POST, $url, ['Accept-Language' => $language], $payload);
-        // // Vérifie si le statut HTTP est 201 (succès)
-        // if ($response->statusCode !== 201) {
-        //     $errorMessage = $response->content['message'] ?? "Unknown error";
-        //     throw new RuntimeException("Error creating mobile transfer: HTTP status {$response->statusCode} - $errorMessage");
-        // }
-
-        // Retourne la réponse (contenu de la requête)
-        // return $response->content;
     }
 }
