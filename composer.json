@@ -18,7 +18,8 @@
     "php": ">=7.4",
     "guzzlehttp/guzzle": "^7.0",
     "vlucas/phpdotenv": "^5.4",
-    "illuminate/http": "^11.35"
+    "illuminate/http": "^11.35",
+    "nesbot/carbon": "^3.8"
   },
   "support": {
     "issues": "https://github.com/barkapay-sa/barkapay-php-sdk/issues",
