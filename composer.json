@@ -24,5 +24,25 @@
   "support": {
     "issues": "https://github.com/barkapay-sa/barkapay-php-sdk/issues",
     "source": "https://github.com/barkapay-sa/barkapay-php-sdk"
+  },
+  "extra": {
+    "exclude-from-classmap": [
+      "/tests/",
+      "/vendor/"
+    ]
+  },
+  "archive": {
+    "exclude": [
+      "/.gitignore",
+      "/.github/",
+      "/.env",
+      "/.env.example",
+      "/tests/",
+      "/composer.lock",
+      "/vendor/",
+      "/.editorconfig",
+      "/.gitattributes",
+      "/.git/"
+    ]
   }
 }
