@@ -15,7 +15,7 @@
     }
   ],
   "require": {
-    "php": ">=7.4",
+    "php": ">=8.0",
     "guzzlehttp/guzzle": "^7.0",
     "vlucas/phpdotenv": "^5.4",
     "illuminate/http": "^11.35",
@@ -28,7 +28,8 @@
   "extra": {
     "exclude-from-classmap": [
       "/tests/",
-      "/vendor/"
+      "/vendor/",
+      "/.github/"
     ]
   },
   "archive": {
@@ -42,7 +43,16 @@
       "/vendor/",
       "/.editorconfig",
       "/.gitattributes",
-      "/.git/"
+      "/.git/",
+      "/docs/",
+      "/examples/"
     ]
-  }
+  },
+  "config": {
+    "sort-packages": true,
+    "optimize-autoloader": true,
+    "preferred-install": "dist"
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
 }

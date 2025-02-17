@@ -3,7 +3,7 @@
         'name' => 'barkapay-sa/barkapay-php-sdk',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '9f19ce3b2c56f68085410112e2c2c304b3c60349',
+        'reference' => 'e284adb0c001310a113aeb7b69178d45fe42bbb7',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'barkapay-sa/barkapay-php-sdk' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '9f19ce3b2c56f68085410112e2c2c304b3c60349',
+            'reference' => 'e284adb0c001310a113aeb7b69178d45fe42bbb7',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
